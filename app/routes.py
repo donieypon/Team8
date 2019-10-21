@@ -2,9 +2,9 @@ from flask import Flask
 from flask import render_template, redirect, url_for, flash
 from app import db
 from flask_login import current_user
+from flask_login import logout_user
 from app.models import User
 from app.forms import createAccount
-#from app.forms import registrationForm not yet created
 
 app = Flask(__name__)
 app.config['SECRET_KEY'] = 'some-key'
@@ -22,5 +22,12 @@ def register():
         flash('Congratulations, you are now a registered user!')
         return redirect(url_for('login'))
     return render_template('register.html', title='Register', form=form)
+
+@app.route('/logout')
+def logout():
+    logout_user()
+    return redirect(url_for('index'))
+
 if __name__ == '__main__':
     app.run(debug=True)
+
