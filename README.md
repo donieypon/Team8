@@ -8,3 +8,7 @@
 10/27/19: Implemented python/flask commands to HTML mockups (completed)
           Implemented flask-bootstrap to Login page
           Completed by: Donie Ypon
+
+# Travis CI
+
+[![Build Status](https://travis-ci.com/donieypon/Team8.svg?branch=master)](https://travis-ci.com/donieypon/Team8)
