@@ -1,0 +1,30 @@
+{% extends "bootstrap/base.html" %}
+
+{% block content %}
+<script src="https://kit.fontawesome.com/5b899e26a3.js"></script>
+
+<div class="container mt-5 border p-3 bg-light" style="width: 600px">
+    <h1 class="text-center">Sign In</h1>
+    <div class="row justify-content-center">
+        <div class="col-md-6">
+            <form action="" method="post" novalidate>
+                {{ form.hidden_tag() }}
+                <p>
+                    {{ form.username.label }}<br>
+                    {{ form.username(size=32) }}
+                </p>
+                <p>
+                    {{ form.password.label }}<br>
+                    {{ form.password(size=32) }}
+                </p>
+                <p>{{ form.remember_me() }} {{ form.remember_me.label }}</p>
+                <p>{{ form.submit() }}</p><p>New User? <a href="{{ url_for('register') }}">Click to Register!</a></p>
+            </form>
+        </div>
+        <div class="col-md-6">
+            <img src="notebook2.jpg" alt="a notebook">
+        </div>
+    </div>
+</div>
+
+{% endblock %}
