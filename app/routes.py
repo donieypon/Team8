@@ -17,6 +17,7 @@ Bootstrap(app)
 @app.route('/index')
 @login_required
 def index():
+    # try post trial
     posts = [
         {
             'author': {'username': 'John'},
