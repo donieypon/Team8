@@ -11,13 +11,10 @@ from flask import request
 from werkzeug.urls import url_parse
 from flask_bootstrap import Bootstrap
 
-Bootstrap(app)
-
 @app.route('/')
 @app.route('/index')
 @login_required
 def index():
-    # try post trial
     posts = [
         {
             'author': {'username': 'John'},
