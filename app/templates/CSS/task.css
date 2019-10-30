@@ -1,0 +1,12 @@
+body{
+    background-color: antiquewhite ;
+    min-height: 100vh;
+}
+
+input, textarea {
+    width:70%;
+    height:27px;
+    background:#efefef;
+    border:1px solid #dedede;
+    padding:10px;
+  }

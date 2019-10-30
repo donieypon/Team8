@@ -1,0 +1,42 @@
+<!doctype html>
+<html lang="en">
+    <head>
+         <title>Create Task</title>
+         <link rel="stylesheet" href="CSS/task.css"/>
+         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    </head>
+
+    
+    <body>
+        <div style="font-size: 0.5rem;">
+            <a href="#"><i class="fa fa-home fa-2x"> Home </i></a>
+        </div>
+
+            <form action="" method="post" class="create-task">
+                    <h1>Create Your Task</h1>
+                    <br>
+                    <div>
+                        <p>Name of Task: </p>
+                        <input type="text" name="name" placeholder="Ex: CMPE131 midterm" required>
+                        <br>
+                        <p>Date: </p>
+                        <input type="datetime-local" name="due" placeholder="Ex: 11/25/2019" required>
+                        <br><br>
+                        <div class="input-group">
+                                <div class="input-group-prepend">
+                                  <span class="input-group-text">Description</span>
+                                  <br><br>
+                                </div>
+                                <textarea class="form-control" aria-label="With textarea" placeholder="Ex: Review last 3 chapters"></textarea>
+                              </div>
+                    </div>
+                    <br>
+                    <br>
+                    <div>
+                            <button type="button" class="btn btn-primary">Create</button>
+                        <br>
+                        <br>
+                    </div>
+            </form>
+    </body>
+</html>
