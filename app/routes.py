@@ -7,7 +7,6 @@ from flask_login import logout_user
 from flask_login import login_required
 from werkzeug.urls import url_parse
 from flask_bootstrap import Bootstrap
-
 Bootstrap(app)
 
 @app.route('/')
