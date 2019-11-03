@@ -1,13 +1,10 @@
-from flask import render_template, flash, redirect, url_for
-from app import app
-from app import db
-from app.forms import LoginForm
-from app.forms import createAccount
+from flask import render_template, flash, redirect, url_for, request
+from app import app, db
+from app.forms import LoginForm, createAccount
 from app.models import User
-from flask_login import current_user, login_user
+from flask_login import current_user, login_user, login_required
 from flask_login import logout_user
 from flask_login import login_required
-from flask import request
 from werkzeug.urls import url_parse
 from flask_bootstrap import Bootstrap
 
@@ -68,3 +65,7 @@ def register():
         flash('Congratulations, you are now a registered user!')
         return redirect(url_for('login'))
     return render_template('register.html', title='Register', form=form)
+
+if __name__ =='__main__':
+    db.create_all()
+    app.run(debug=True)
