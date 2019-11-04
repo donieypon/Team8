@@ -7,6 +7,7 @@ from flask_login import logout_user
 from flask_login import login_required
 from werkzeug.urls import url_parse
 from flask_bootstrap import Bootstrap
+
 Bootstrap(app)
 
 @app.route('/')
@@ -77,7 +78,7 @@ def add():
         flash('Successfully to create task!')
         return redirect(url_for('add'))
     post = Post.query.all()
-    return render_template('task.html',form=form, post=post,  title='New Tasks')
+    return render_template('task.html',form=form, title='New Tasks')
     
 if __name__ =='__main__':
     db.create_all()
