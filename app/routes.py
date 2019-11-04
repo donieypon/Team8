@@ -1,6 +1,6 @@
 from flask import render_template, flash, redirect, url_for, request
 from app import app, db
-from app.forms import LoginForm, createAccount
+from app.forms import LoginForm, createAccount, PostForm
 from app.models import User, Post
 from flask_login import current_user, login_user, login_required
 from flask_login import logout_user
@@ -69,16 +69,17 @@ def register():
 @app.route('/add', methods =['GET','POST'])
 @login_required
 def add(): 
-    form = Post()
+    form = PostForm()
     if request.method == 'POST' :
-        body  = request.form.get('body')
-        post = Post(body=body)
+        nameTitle = request.form.get('nameTitle')
+        content = request.form.get('content')
+        post = Post(nameTitle = nameTitle, content = content)
         db.session.add(post)
         db.session.commit()
         flash('Successfully to create task!')
         return redirect(url_for('add'))
     post = Post.query.all()
-    return render_template('task.html',form=form, title='New Tasks')
+    return render_template('task.html',form=form, post=post,  title='New Tasks')
     
 if __name__ =='__main__':
     db.create_all()

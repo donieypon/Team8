@@ -1,5 +1,5 @@
 from flask_wtf import FlaskForm
-from wtforms import StringField, PasswordField, SubmitField, BooleanField
+from wtforms import StringField, PasswordField, SubmitField, BooleanField, TextAreaField
 from wtforms.validators import ValidationError, DataRequired, Email, EqualTo
 from app.models import User
 
@@ -26,3 +26,8 @@ class createAccount(FlaskForm):
         user = User.query.filter_by(email=email.data).first()
         if user is not None:
             raise ValidationError('Please use a valid email address.')
+
+class PostForm(FlaskForm):
+    nameTitle = StringField('nameTitle', validators=[DataRequired()])
+    content = TextAreaField('content')
+    submit = SubmitField('Create')
