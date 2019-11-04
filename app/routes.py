@@ -17,6 +17,8 @@ Bootstrap(app)
 @app.route('/index')
 @login_required
 def index():
+
+    """
     posts = [
         {
             'author': {'username': 'John'},
@@ -27,7 +29,11 @@ def index():
             'body': 'The Avengers movie was so cool!'
         }
     ]
-    return render_template('CreateATask.html', title='Home', posts=posts)
+    return render_template('index.html', title='Home', posts=posts)
+
+    """
+
+    return render_template('CreateATask.html')
 
 @app.route('/login', methods=['GET', 'POST'])
 def login():
@@ -68,3 +74,13 @@ def register():
         flash('Congratulations, you are now a registered user!')
         return redirect(url_for('login'))
     return render_template('register.html', title='Register', form=form)
+
+
+"""
+@app.route('/createTask', methods=['POST'])
+def createTask(): 
+    form = createTask()
+    if form.validate_on_submit():
+        task = Task(taskName=form.taskName.data)
+        
+"""
