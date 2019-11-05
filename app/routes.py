@@ -14,7 +14,8 @@ Bootstrap(app)
 @app.route('/index')
 @login_required
 def index():
-    return render_template('index.html', user=current_user)
+    posts = Post.query.all()
+    return render_template('index.html', user=current_user, posts=posts)
 
 @app.route('/login', methods=['GET', 'POST'])
 def login():
