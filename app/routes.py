@@ -1,7 +1,12 @@
 from flask import render_template, flash, redirect, url_for, request
 from app import app, db
+<<<<<<< HEAD
 from app.forms import LoginForm, createAccount
 from app.models import User
+=======
+from app.forms import LoginForm, createAccount, PostForm
+from app.models import User, Post
+>>>>>>> huanTran
 from flask_login import current_user, login_user, login_required
 from flask_login import logout_user
 from flask_login import login_required
@@ -66,6 +71,24 @@ def register():
         return redirect(url_for('login'))
     return render_template('register.html', title='Register', form=form)
 
+<<<<<<< HEAD
+=======
+@app.route('/add', methods =['GET','POST'])
+@login_required
+def add(): 
+    form = PostForm()
+    if request.method == 'POST' :
+        nameTitle = request.form.get('nameTitle')
+        content = request.form.get('content')
+        post = Post(nameTitle = nameTitle, content = content)
+        db.session.add(post)
+        db.session.commit()
+        flash('Successfully to create task!')
+        return redirect(url_for('add'))
+    post = Post.query.all()
+    return render_template('task.html',form=form, post=post,  title='New Tasks')
+    
+>>>>>>> huanTran
 if __name__ =='__main__':
     db.create_all()
     app.run(debug=True)
