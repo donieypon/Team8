@@ -1,7 +1,7 @@
 from flask import render_template, flash, redirect, url_for, request
 from app import app, db
-from app.forms import LoginForm, createAccount
-from app.models import User
+from app.forms import LoginForm, createAccount, PostForm
+from app.models import User, Post
 from flask_login import current_user, login_user, login_required
 from flask_login import logout_user
 from flask_login import login_required
@@ -14,23 +14,8 @@ Bootstrap(app)
 @app.route('/index')
 @login_required
 def index():
-
-    """
-    posts = [
-        {
-            'author': {'username': 'John'},
-            'body': 'Beautiful day in Portland!'
-        },
-        {
-            'author': {'username': 'Susan'},
-            'body': 'The Avengers movie was so cool!'
-        }
-    ]
-    return render_template('index.html', title='Home', posts=posts)
-
-    """
-
-    return render_template('CreateATask.html')
+    posts = Post.query.all()
+    return render_template('index.html', user=current_user, posts=posts)
 
 @app.route('/login', methods=['GET', 'POST'])
 def login():
@@ -72,6 +57,7 @@ def register():
         return redirect(url_for('login'))
     return render_template('register.html', title='Register', form=form)
 
+<<<<<<< HEAD
 """
 @app.route('/createTask', methods=['POST'])
 def createTask(): 
@@ -80,6 +66,23 @@ def createTask():
         task = Task(taskName=form.taskName.data)
         
 """
+=======
+@app.route('/add', methods =['GET','POST'])
+@login_required
+def add(): 
+    form = PostForm()
+    if request.method == 'POST' :
+        nameTitle = request.form.get('nameTitle')
+        content = request.form.get('content')
+        post = Post(nameTitle = nameTitle, content = content)
+        db.session.add(post)
+        db.session.commit()
+        flash('Successfully to create task!')
+        return redirect(url_for('add'))
+    post = Post.query.all()
+    return render_template('task.html',form=form, post=post,  title='New Tasks')
+    
+>>>>>>> 83259a6408cb6cbce00d4e984859940c49ba2a52
 if __name__ =='__main__':
     db.create_all()
     app.run(debug=True)
