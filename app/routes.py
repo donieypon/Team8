@@ -64,14 +64,21 @@ def add():
     if request.method == 'POST' :
         nameTitle = request.form.get('nameTitle')
         content = request.form.get('content')
-        post = Post(nameTitle = nameTitle, content = content)
+        post = Post(nameTitle = nameTitle, content = content, author=current_user._get_current_object())
         db.session.add(post)
         db.session.commit()
         flash('Successfully to create task!')
-        return redirect(url_for('add'))
-    post = Post.query.all()
-    return render_template('task.html',form=form, post=post,  title='New Tasks')
-    
+        return redirect(url_for('index'))
+    return render_template('task.html',form=form, title='New Tasks')
+
+@app.route('/delete<int:id>')
+@login_required
+def delete(id):
+    post = Post.query.filter_by(id=id).first()
+    db.session.delete(post)
+    db.session.commit()
+    return redirect(url_for('index'))
+
 if __name__ =='__main__':
     db.create_all()
     app.run(debug=True)

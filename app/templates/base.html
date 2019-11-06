@@ -5,16 +5,17 @@
         {% else %}
         <title>microblog</title>
         {% endif %}
+        <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
     </head>
     <body>
         <div>
-        my blog:
-            <a href="{{ url_for('index') }}">Home</a>
-            <a href="{{ url_for('add') }}">Create Task</a>
+        StuffToDo: 
+            <a href="{{ url_for('index') }}">&nbsp;<i class="material-icons">home</i>&nbsp;</a>
+            <a href="{{ url_for('add') }}">&nbsp;Create Task&nbsp;</a>
             {% if current_user.is_anonymous %}
-            <a href="{{ url_for('login') }}">Login</a>
+            <a href="{{ url_for('login') }}">&nbsp;Login&nbsp;</a>
             {% else %}
-            <a href="{{ url_for('logout') }}">Logout</a>
+            <a href="{{ url_for('logout') }}">&nbsp;Logout&nbsp;</a>
             {% endif %}
 
         </div>

@@ -1,33 +1,24 @@
 {% extends 'base.html' %}
 {% block content %}    
-            <form action="" method="post" class="add">
-                    <h1>Create Your Task</h1>
-                    <br>
-                    <div>
-                        <p>Name of Task: </p>
-                        <input type="text" name="nameTitle" placeholder="Ex: CMPE131 midterm" required>
-                        <br><br>
-                        <!-- <p>Date: </p>
-                        <input type="datetime-local" name="due" placeholder="Ex: 11/25/2019" required>
-                        <br><br> -->
+<h1>Create Your Task</h1>
+<br>
+<form action="" method="post" class="add">
+  {{ form.hidden_tag() }}
+    <div>
+      <p>Name of Task: </p>
+      <input type="text" name="nameTitle" placeholder="Ex: CMPE131 midterm" required>
+      <br><br>
+      <div>
+      <textarea name="content" placeholder="Content"></textarea>
+      </div>
+    </div>
+    <br>
+    <br>
+  <div>
+      <button type="submit" class="btn btn-primary">Submit</button>
+  </div>
 
-                        <!-- <div class="input-group">
-                                <div class="input-group-prepend">
-                                  <span class="input-group-text">Description</span>
-                                  <br><br>
-                                </div>
-                                <textarea class="form-control" aria-label="With textarea" placeholder="Ex: Review last 3 chapters"></textarea>
-                              </div> -->
-                              <div>
-                                  <textarea name="content" placeholder="Content"></textarea>
-                              </div>
-                    </div>
-                    <br>
-                    <div>
-                            <button type="submit" class="btn btn-primary">Create</button>
-                        <br>
-                        <br>
-                    </div>
-            </form>
+
+</form>
             
 {% endblock content %} 

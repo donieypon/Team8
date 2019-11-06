@@ -7,7 +7,10 @@
     <h2>Your Task:</h2>
     <ul>
         {% for post in posts %}
+        {% if post.user_id==user.id %}
             <li><h3> {{ post.nameTitle }}</h3>  {{ post.content }}</li> 
+            <a href="{{ url_for('delete', id = post.id) }}"><i class="material-icons">delete</i></a>
+        {% endif %}
         {% endfor %}
     </ul>
 {% endblock %}
