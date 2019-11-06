@@ -14,8 +14,8 @@ Bootstrap(app)
 @app.route('/index')
 @login_required
 def index():
-    posts = Post.query.all()
-    return render_template('index.html', user=current_user, posts=posts)
+    post = Post.query.all()
+    return render_template('index.html', user=current_user, post=post)
 
 @app.route('/login', methods=['GET', 'POST'])
 def login():
@@ -64,7 +64,7 @@ def add():
     if request.method == 'POST' :
         nameTitle = request.form.get('nameTitle')
         content = request.form.get('content')
-        post = Post(nameTitle = nameTitle, content = content, author=current_user._get_current_object())
+        post = Post(nameTitle = nameTitle, content = content, complete = False, author=current_user._get_current_object())
         db.session.add(post)
         db.session.commit()
         flash('Successfully to create task!')
@@ -87,11 +87,13 @@ def edit(id):
     if request.method == 'POST':
             post.nameTitle = request.form.get('nameTitle')
             post.content =  request.form.get('content')
+            post.complete = form.complete.data
             db.session.commit()
             flash('Successfully Editted', 'success')
             return redirect(url_for('index'))
     return render_template('task.html', title='Edit', legend='Edit', form=form, post=post)
 
+<<<<<<< HEAD
 @app.route('/friends', methods=['GET', 'POST'])
 @login_required
 def friends():
@@ -135,6 +137,15 @@ def friends():
 
         return render_template('friendList.html', form=form, friends=allFriends)
 
+=======
+@app.route('/complete/<int:id>')
+@login_required
+def complete(id):
+    post = Post.query.filter_by(id = id).first()
+    post.complete = True
+    db.session.commit()
+    return redirect(url_for('index'))
+>>>>>>> b8e0b7d5d78ed151c1ff84d713ff44e915d049c2
     
 if __name__ =='__main__':
     db.create_all()

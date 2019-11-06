@@ -8,8 +8,7 @@
     <!-- Bootstrap CSS -->
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
 
-    
-
+   
     <title>Add Friend</title>
 
     <link rel="stylesheet" href="CSS/test.css" />
@@ -26,10 +25,25 @@
     <div class="back">
         
         <div class="col-md-4 sum">
-            <div class="form-group">
+            
+
+            <div class="list d-flex justify-content-around">
+
                 
-                <input type="text" class="form-control" placeholder="Search">
+                <div class="form-group">
+                
+                    <input type="text" placeholder="Search" size="55">
+    
+                    
+                </div>
+
+                <div class="col-md-3 col-sm-3">
+                    <button type="Submit" class="btn btn-primary" onclick="myFunction()">Send Request</button>
+                    
+                </div>
             </div>
+
+            
             
             
             <div class="list d-flex justify-content-around">
@@ -43,7 +57,7 @@
                 </div>
 
                 <div class="col-md-3 col-sm-3">
-                    <button type="Submit" class="btn btn-primary">Send Request</button>
+                    <input onclick="change1()" class="btn btn-primary" type="button" value="Add Friend" id="myButton1"></input>
                 </div>
             </div>
 
@@ -59,7 +73,7 @@
                 </div>
 
                 <div class="col-md-3 col-sm-3">
-                    <button type="Submit" class="btn btn-primary">Send Request</button>
+                    <input onclick="change2()" class="btn btn-primary" type="button" value="Add Friend" id="myButton2"></input>
                 </div>
             </div>
 
@@ -74,7 +88,7 @@
                 </div>
 
                 <div class="col-md-3 col-sm-3">
-                    <button type="Submit" class="btn btn-primary">Send Request</button>
+                    <input onclick="change3()" class="btn btn-primary" type="button" value="Add Friend" id="myButton3"></input>
                 </div>
             </div>
 
@@ -89,7 +103,7 @@
                 </div>
 
                 <div class="col-md-3 col-sm-3">
-                    <button type="Submit" class="btn btn-primary">Send Request</button>
+                    <input onclick="change4()" class="btn btn-primary" type="button" value="Add Friend" id="myButton4"></input>
                 </div>
             </div>
 
@@ -104,7 +118,7 @@
                 </div>
 
                 <div class="col-md-3 col-sm-3">
-                    <button type="Submit" class="btn btn-primary">Send Request</button>
+                    <input onclick="change5()" class="btn btn-primary" type="button" value="Add Friend" id="myButton5"></input>
                 </div>
             </div>
 
@@ -119,7 +133,7 @@
                 </div>
 
                 <div class="col-md-3 col-sm-3">
-                    <button type="Submit" class="btn btn-primary">Send Request</button>
+                    <input onclick="change6()" class="btn btn-primary" type="button" value="Add Friend" id="myButton6"></input>
                 </div>
             </div>
 
@@ -134,7 +148,7 @@
                 </div>
 
                 <div class="col-md-3 col-sm-3">
-                    <button type="Submit" class="btn btn-primary">Send Request</button>
+                    <input onclick="change7()" class="btn btn-primary" type="button" value="Add Friend" id="myButton7"></input>
                 </div>
             </div>
 
@@ -148,11 +162,94 @@
                     <div> 8 mutual Friend </div>
                 </div>
 
-                <div class="col-md-3 col-sm-3">
-                    <button type="Submit" class="btn btn-primary">Send Request</button>
+                <div class="col-md-3 col-sm-3">   
+                    <input onclick="change8()" class="btn btn-primary" type="button" value="Add Friend" id="myButton8"></input>
                 </div>
+
+                
+                
+                
             </div>
         </div>
+
+       
+       
+
+       
+
+        <script>
+            function myFunction() {
+              alert("Sent Friend Request!");
+            }
+
+            $(document).ready(function() { 
+                $("button").click(function() { 
+                $("#s").html("Sent Request"); 
+                }); 
+            }); 
+
+            function change1() 
+            {
+                var elem = document.getElementById("myButton1");
+                if (elem.value=="Cancel") elem.value = "Add Friend";
+                else elem.value = "Cancel";
+            }
+
+            function change2() 
+            {
+                var elem = document.getElementById("myButton2");
+                if (elem.value=="Cancel") elem.value = "Add Friend";
+                else elem.value = "Cancel";
+            }
+
+            function change3() 
+            {
+                var elem = document.getElementById("myButton3");
+                if (elem.value=="Cancel") elem.value = "Add Friend";
+                else elem.value = "Cancel";
+            }
+
+            function change4()
+            {
+                var elem = document.getElementById("myButton4");
+                if (elem.value=="Cancel") elem.value = "Add Friend";
+                else elem.value = "Cancel";
+            }
+
+            function change5()
+            {
+                var elem = document.getElementById("myButton5");
+                if (elem.value=="Cancel") elem.value = "Add Friend";
+                else elem.value = "Cancel";
+            }
+
+            function change6() 
+            {
+                var elem = document.getElementById("myButton6");
+                if (elem.value=="Cancel") elem.value = "Add Friend";
+                else elem.value = "Cancel";
+            }
+
+            function change7() 
+            {
+                var elem = document.getElementById("myButton7");
+                if (elem.value=="Cancel") elem.value = "Add Friend";
+                else elem.value = "Cancel";
+            }
+
+            function change8()
+            {
+                var elem = document.getElementById("myButton8");
+                if (elem.value=="Cancel") elem.value = "Add Friend";
+                else elem.value = "Cancel";
+            }
+
+            
+           
+
+        </script>
+
+        
     
     </div>
 
