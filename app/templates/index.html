@@ -10,6 +10,7 @@
         {% if post.user_id==user.id %}
             <li><h3> {{ post.nameTitle }}</h3>  {{ post.content }}</li> 
             <a href="{{ url_for('delete', id = post.id) }}"><i class="material-icons">delete</i></a>
+            <a href="{{ url_for('edit', id = post.id) }}">&#9998;</a>
         {% endif %}
         {% endfor %}
     </ul>

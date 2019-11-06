@@ -69,7 +69,7 @@ def add():
         db.session.commit()
         flash('Successfully to create task!')
         return redirect(url_for('index'))
-    return render_template('task.html',form=form, title='New Tasks')
+    return render_template('task.html',form=form, legend='Add', title='New Tasks')
 
 @app.route('/delete<int:id>')
 @login_required
@@ -79,6 +79,19 @@ def delete(id):
     db.session.commit()
     return redirect(url_for('index'))
 
+@app.route('/edit/<int:id>', methods=['GET','POST'])
+@login_required
+def edit(id): 
+    post = Post.query.filter_by(id = id).first()
+    form = PostForm()
+    if request.method == 'POST':
+            post.nameTitle = request.form.get('nameTitle')
+            post.content =  request.form.get('content')
+            db.session.commit()
+            flash('Successfully Editted', 'success')
+            return redirect(url_for('index'))
+    return render_template('task.html', title='Edit', legend='Edit', form=form, post=post)
+    
 if __name__ =='__main__':
     db.create_all()
     app.run(debug=True)
