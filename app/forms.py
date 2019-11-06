@@ -30,4 +30,5 @@ class createAccount(FlaskForm):
 class PostForm(FlaskForm):
     nameTitle = StringField('nameTitle', validators=[DataRequired()])
     content = TextAreaField('content')
+    complete = BooleanField('complete')
     submit = SubmitField('Create')

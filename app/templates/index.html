@@ -4,14 +4,29 @@
     <!-- current_user is a property of flask-login -->
     <h1>Hello, {{ user.username }}</h1>
     <br>
-    <h2>Your Task:</h2>
+    <div>
+        <h2>Tasks do Do:</h2>
     <ul>
-        {% for post in posts %}
-        {% if post.user_id==user.id %}
+        {% for post in post %}
+        {% if post.complete==False and post.user_id==user.id %}
             <li><h3> {{ post.nameTitle }}</h3>  {{ post.content }}</li> 
             <a href="{{ url_for('delete', id = post.id) }}"><i class="material-icons">delete</i></a>
-            <a href="{{ url_for('edit', id = post.id) }}">&#9998;</a>
+            <a href="{{ url_for('edit', id = post.id) }}">&nbsp;&#9998;&nbsp;</a>
+            <a href="{{ url_for('complete', id = post.id) }}">&#10003;</a>
         {% endif %}
         {% endfor %}
     </ul>
+    </div>
+    <br>
+    <div>
+        <h2>Tasks Completed:</h2>
+    <ul>
+        {% for post in post %}
+        {% if post.complete==True and post.user_id==user.id %}
+            <li><h3> {{ post.nameTitle }}</h3>  {{ post.content }}</li> 
+            <a href="{{ url_for('delete', id = post.id) }}"><i class="material-icons">delete</i></a>
+        {% endif %}
+        {% endfor %}
+    </div>
+
 {% endblock %}

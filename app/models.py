@@ -24,6 +24,7 @@ class Post(UserMixin,db.Model):
     nameTitle = db.Column(db.String(256),  index=True)
     content = db.Column(db.UnicodeText, index=True)
     timestamp = db.Column(db.DateTime, index=True, default=datetime.utcnow)
+    complete = db.Column(db.Boolean, default=False)
     user_id = db.Column(db.Integer, db.ForeignKey('user.id'))
 
     def __repr__(self):
