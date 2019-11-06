@@ -1,7 +1,7 @@
 from flask import render_template, flash, redirect, url_for, request
 from app import app, db
-from app.forms import LoginForm, createAccount, PostForm
-from app.models import User, Post
+from app.forms import LoginForm, createAccount, PostForm, addFriend
+from app.models import User, Post, Friend
 from flask_login import current_user, login_user, login_required
 from flask_login import logout_user
 from flask_login import login_required
@@ -91,6 +91,50 @@ def edit(id):
             flash('Successfully Editted', 'success')
             return redirect(url_for('index'))
     return render_template('task.html', title='Edit', legend='Edit', form=form, post=post)
+
+@app.route('/friends', methods=['GET', 'POST'])
+@login_required
+def friends():
+    if not current_user.is_authenticated:
+        return redirect(url_for('login'))
+    form = addFriend()
+    if form.validate_on_submit():
+        user = User.query.filter_by(username=form.username.data).first()
+
+        #if already friends
+        friendList = Friend.query.filter_by(user_id=current_user.id).all()
+        isFriend = False
+        for friend in friendList:
+            if friend.friend_username == user.username:
+                isFriend = True
+
+        #if not friends
+        if user and user != current_user:
+            if isFriend:
+                flash('You are already friends with this user.')
+                return redirect(url_for('friends'))
+            else:
+                friend = Friend(author=current_user, friend_username=user.username, friend_id=user.id, friend_email=user.email)
+                db.create_all()
+                db.session.add(friend)
+                db.session.commit()
+                print(Friend.query.filter_by(user_id=current_user.id).all())
+                flash('You are now friends with ' + user.username + '.')
+                return redirect(url_for('friends'))
+        #if invalid name
+        else:
+            flash('Error. Please enter a valid username.')
+            return redirect(url_for('friends'))
+
+        #get friends of user
+        friends = current_user.friends.all()
+        allFriends = []
+        for friend in friends:
+            user = User.query.filter_by(username=friend.friend_username).first()
+            allFriends.append(friend.friend_username)
+
+        return render_template('friendList.html', form=form, friends=allFriends)
+
     
 if __name__ =='__main__':
     db.create_all()
