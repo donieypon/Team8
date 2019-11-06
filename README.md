@@ -4,7 +4,7 @@ As busy college students, one of the biggest challenges we face is keeping track
 
 ### Features: ###
 
-Markup: *Register
+Markup : *Register
 To access the web app, a user must have an account. New users can create their own personal accounts by entering their name, a valid email address, and a password. Once registered, the user's credentials are saved via MySQL Database and will allow the user to login at any time. 
 
         *Login
