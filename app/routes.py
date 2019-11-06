@@ -72,8 +72,6 @@ def register():
         return redirect(url_for('login'))
     return render_template('register.html', title='Register', form=form)
 
-<<<<<<< HEAD
-
 """
 @app.route('/createTask', methods=['POST'])
 def createTask(): 
@@ -82,8 +80,7 @@ def createTask():
         task = Task(taskName=form.taskName.data)
         
 """
-=======
 if __name__ =='__main__':
     db.create_all()
     app.run(debug=True)
->>>>>>> d80ebf902a7b61b50731635203f37634fa03c98b
+
