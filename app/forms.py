@@ -32,3 +32,8 @@ class PostForm(FlaskForm):
     content = TextAreaField('content')
     complete = BooleanField('complete')
     submit = SubmitField('Create')
+
+class addFriend(FlaskForm):
+    username = StringField('Username', validators=[DataRequired()], description="Enter friend's username")
+    message = StringField('Message', description="Send a message")
+    add = SubmitField('Add')

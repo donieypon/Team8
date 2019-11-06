@@ -30,6 +30,16 @@ class Post(UserMixin,db.Model):
     def __repr__(self):
         return '<Posts {}>'.format(self.nameTitle)
 
+class Friend(UserMixin, db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+    friend_username = db.Column(db.String(64), index=True)
+    friend_email = db.Column(db.String(64), index=True)
+    friend_id = db.Column(db.Integer, index=True)
+    user_id = db.Column(db.Integer, db.ForeignKey('user.id'))
+
+    def __repr__(self):
+        return '<Friend {}>'.format(self.id)
+
 @login.user_loader
 def load_user(id):
     return User.query.get(int(id))
