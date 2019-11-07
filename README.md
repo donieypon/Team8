@@ -17,7 +17,7 @@ Users who are logged into the web app are given the option to log out. Logging o
 Creating a task is the main feature of this web app. Here, users enter a task name, task description, and a date they would like to complete the task by. Once hitting the submit button, task will be stored to the database.
 
 #### View Tasks ####
-Tasks after being created will be display in the homepage. After the users hit submit to create the new tasks, they will be immediately carried to he homepage to see what they've just created as well as the list of old tasks. Tasks displayed in the homepage will include the information the users inputted such as title, date, time, description.
+Tasks after being created will be display in the homepage. After the users hit submit to create the new tasks, they will be immediately carried to he homepage to see what they've just created as well as the list of old tasks. Tasks displayed in the homepage will include the information the users input such as title, date, time, description.
 
 #### Edit Task ####
 Users have the ability to fix any information of the task. By hitting the edit button below the task in the homepage, the edit form will be displayed to let the users decide what they want to keep and change. After hitting the submit button, it will go back to the homepage and display task after editting.  
