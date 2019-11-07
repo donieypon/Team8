@@ -14,19 +14,19 @@ Existing users who have made accounts can log into the web app to access its fea
 Users who are logged into the web app are given the option to log out. Logging out will save the user's tasks/lists until the next login via database. 
 
 #### Create Task ####
-Creating a task is the main feature of this web app. Here, users enter a task name, task description, and a date they would like to complete the task by. Once submitted, the task will be saved and will be seen by the user on the homepage. This incomplete task will be displayed under the section *Not Completed*.
+Creating a task is the main feature of this web app. Here, users enter a task name, task description, and a date they would like to complete the task by. Once hitting the submit button, task will be stored to the database.
 
-#### Complete/Remove Task ####
-Users who have created tasks have the ability ability to manipulate tasks. They can mark a task as completed and will be displayed under the *Completed* section. Users can also remove a task completely from their lists whether it has been completed or not.  
+#### View Tasks ####
+Tasks after being created will be display in the homepage. After the users hit submit to create the new tasks, they will be immediately carried to he homepage to see what they've just created as well as the list of old tasks. Tasks displayed in the homepage will include the information the users inputted such as title, date, time, description.
 
-#### Create List ####
-Users have the ability to create a list which is a compilation of tasks for organizational purposes. Users can select which list to send the task to. Lists will be displayed on the homepage. 
+#### Edit Task ####
+Users have the ability to fix any information of the task. By hitting the edit button below the task in the homepage, the edit form will be displayed to let the users decide what they want to keep and change. After hitting the submit button, it will go back to the homepage and display task after editting.  
 
-#### Add Friend(s) ####
-Users have the ability to add other users of this web app. Users can search for other user by their emails, and friend requests can be sent. Once a user is a friend, users can share their lists for viewing/editing to other users.
+#### Delete Task ####
+Users have the ability to delete task they no long want to keep track. By hitting the delete button below the task in the homepage, the task will be removed.
 
-#### Sharing Capabilities ####
-Sharing capabilities are only available to users who are friends. With given permission, users can collaborate on tasks/lists.
+#### Check Complete ####
+In this feature, users have the ability to classify which tasks are finishes and which tasks are unfinished. The finished tasked will be displayed in a column beside the column storing unfinished tasks. It could help users know which tasks need to be completed.
 
 
 # Travis CI
