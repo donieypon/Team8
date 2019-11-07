@@ -93,51 +93,55 @@ def edit(id):
             return redirect(url_for('index'))
     return render_template('task.html', title='Edit', legend='Edit', form=form, post=post)
 
-<<<<<<< HEAD
 @app.route('/friends', methods=['GET', 'POST'])
 @login_required
 def friends():
     if not current_user.is_authenticated:
         return redirect(url_for('login'))
+
     form = addFriend()
-    if form.validate_on_submit():
-        user = User.query.filter_by(username=form.username.data).first()
+    print('hi')
+    # if form.validate_on_submit():
+    #     user = User.query.filter_by(username=form.username.data).first()
+    #
+    #     #checks if friends
+    #     friendList = Friend.query.filter_by(user_id=current_user.id).all()
+    #     isFriend = False
+    #     for friend in friendList:
+    #         if friend.friend_username == user.username:
+    #             isFriend = True
+    #
+    #     #if user entered is valid, and not current user
+    #     if user and user != current_user:
+    #         # if friends or not friends
+    #         if isFriend:
+    #             flash('You are already friends with this user.')
+    #             return redirect(url_for('friends'))
+    #         else:
+    #             friend = Friend(author=current_user, friend_username=user.username, friend_id=user.id, friend_email=user.email)
+    #             db.create_all()
+    #             db.session.add(friend)
+    #             db.session.commit()
+    #             print(Friend.query.filter_by(user_id=current_user.id).all())
+    #             flash('You are now friends with ' + user.username + '.')
+    #             return redirect(url_for('friends'))
+    #
+    #     #if invalid name
+    #     else:
+    #         flash('Error. Please enter a valid username.')
+    #         return redirect(url_for('friends'))
+    #
+    #     #get friends of user
+    #
+    #     #friends = current_user.friends.all()
+    #     for friend in friends:
+    #         user = User.query.filter_by(username=friend.friend_username).first()
+    #         allFriends.append(friend.friend_username)
 
-        #if already friends
-        friendList = Friend.query.filter_by(user_id=current_user.id).all()
-        isFriend = False
-        for friend in friendList:
-            if friend.friend_username == user.username:
-                isFriend = True
+    #return render_template('addFriend.html', form=form, friends=allFriends)
 
-        #if not friends
-        if user and user != current_user:
-            if isFriend:
-                flash('You are already friends with this user.')
-                return redirect(url_for('friends'))
-            else:
-                friend = Friend(author=current_user, friend_username=user.username, friend_id=user.id, friend_email=user.email)
-                db.create_all()
-                db.session.add(friend)
-                db.session.commit()
-                print(Friend.query.filter_by(user_id=current_user.id).all())
-                flash('You are now friends with ' + user.username + '.')
-                return redirect(url_for('friends'))
-        #if invalid name
-        else:
-            flash('Error. Please enter a valid username.')
-            return redirect(url_for('friends'))
+    return render_template('addFriend.html', form=form)
 
-        #get friends of user
-        friends = current_user.friends.all()
-        allFriends = []
-        for friend in friends:
-            user = User.query.filter_by(username=friend.friend_username).first()
-            allFriends.append(friend.friend_username)
-
-        return render_template('friendList.html', form=form, friends=allFriends)
-
-=======
 @app.route('/complete/<int:id>')
 @login_required
 def complete(id):
@@ -145,8 +149,7 @@ def complete(id):
     post.complete = True
     db.session.commit()
     return redirect(url_for('index'))
->>>>>>> b8e0b7d5d78ed151c1ff84d713ff44e915d049c2
-    
+
 if __name__ =='__main__':
     db.create_all()
     app.run(debug=True)
