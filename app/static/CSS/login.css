@@ -1,0 +1,12 @@
+body {
+    background-color: blue;
+}
+
+.user-img {
+    margin-top: -50px;
+}
+
+.user-img img {
+    height: 100px;
+    width: 100px;
+}
