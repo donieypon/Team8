@@ -69,7 +69,7 @@ def add():
         db.session.commit()
         flash('Successfully to create task!')
         return redirect(url_for('index'))
-    return render_template('task.html',form=form, legend='Add', title='New Tasks')
+    return render_template('task.html',form=form, legend='Create Task', title='New Tasks')
 
 @app.route('/delete<int:id>')
 @login_required
@@ -91,7 +91,7 @@ def edit(id):
             db.session.commit()
             flash('Successfully Editted', 'success')
             return redirect(url_for('index'))
-    return render_template('task.html', title='Edit', legend='Edit', form=form, post=post)
+    return render_template('task.html', title='Edit', legend='Edit Task', form=form, post=post)
 
 @app.route('/friends', methods=['GET', 'POST'])
 @login_required
