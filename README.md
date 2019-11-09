@@ -77,7 +77,7 @@ Users have the ability to fix any information of the task. By hitting the edit b
 ### Delete Task
 Users have the ability to delete task they no long want to keep track. By hitting the delete button below the task in the homepage, the task will be removed.
 
-#### Check Complete ####
+### Check Complete
 In this feature, users have the ability to classify which tasks are finishes and which tasks are unfinished. The finished tasked will be displayed in a column beside the column storing unfinished tasks. It could help users know which tasks need to be completed.
 
 ## Built With
