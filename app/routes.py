@@ -36,7 +36,7 @@ def login():
             next_page = url_for('index')
 
         return redirect(next_page)
-    return render_template('login.html', title='Sign in', form=form)
+    return render_template('LLogin.html', title='Sign in', form=form)
 
 @app.route('/logout')
 def logout():
