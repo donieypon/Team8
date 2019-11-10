@@ -1,34 +1,42 @@
 {% extends "base.html" %}
 
 {% block content %}
-    <!-- current_user is a property of flask-login -->
+
     <div class="container-fluid">
-        <h1>Hello, {{ user.username }}</h1>
-        <br>
-        <div>
-            <h2>Tasks to Do:</h2>
-            <ul>
-                {% for post in post %}
-                {% if post.complete==False and post.user_id==user.id %}
-                    <li><h3> {{ post.nameTitle }}</h3>  {{ post.content }}</li>
-                    <a href="{{ url_for('delete', id = post.id) }}"><i class="material-icons">delete</i></a>
-                    <a href="{{ url_for('edit', id = post.id) }}">&nbsp;&#9998;&nbsp;</a>
-                    <a href="{{ url_for('complete', id = post.id) }}">&#10003;</a>
-                {% endif %}
-                {% endfor %}
-            </ul>
-        </div>
-        <br>
-        <div>
-            <h2>Tasks Completed:</h2>
-            <ul>
-                {% for post in post %}
-                {% if post.complete==True and post.user_id==user.id %}
-                    <li><h3> {{ post.nameTitle }}</h3>  {{ post.content }}</li>
-                    <a href="{{ url_for('delete', id = post.id) }}"><i class="material-icons">delete</i></a>
-                {% endif %}
-                {% endfor %}
-            </ul>
+
+        <h1>Welcome, {{user.username}}</h1>
+
+        <div class="row">
+            <div class="col-lg-6 left-side">
+                <h2>Tasks to Do:</h2>
+                <div class="row">
+                    {% for post in post %}
+                    {% if post.complete==False and post.user_id==user.id %}
+                        <div class="col-lg-4 col-sm-6 a-task">
+                            <h3 style="color: white;">{{post.nameTitle}}</h3>
+                            <p style="color: white;">{{post.content}}</p>
+                            <a href="{{ url_for('delete', id = post.id) }}"><i class="material-icons">delete</i></a>
+                            <a href="{{ url_for('edit', id = post.id) }}">&nbsp;&#9998;&nbsp;</a>
+                            <a href="{{ url_for('complete', id = post.id) }}">&#10003;</a>
+                        </div>
+                    {% endif %}
+                    {% endfor %}
+                </div>
+            </div>
+            <div class="col-lg-6">
+                <h2>Tasks Completed:</h2>
+                <div class="row">
+                    {% for post in post %}
+                    {% if post.complete==True and post.user_id==user.id %}
+                        <div class="col-lg-4 col-sm-6 a-task">
+                            <h3 style="color: white;">{{post.nameTitle}}</h3>
+                            <p style="color: white;">{{post.content}}</p>
+                            <a href="{{ url_for('delete', id = post.id) }}"><i class="material-icons">delete</i></a>
+                        </div>
+                    {% endif %}
+                    {% endfor %}
+                </div>
+            </div>
         </div>
     </div>
 
