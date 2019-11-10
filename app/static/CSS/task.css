@@ -1,5 +1,5 @@
 body{
-    background-color: wheat ;
+    background-color: powderblue ;
     min-height: 100vh;
 }
 
@@ -11,6 +11,14 @@ input, textarea {
     padding:10px;
   }
 
-.taskHeader {
-    color: green;
+.main-section {
+    margin: 0 auto;
+    margin-top: 150px;
+    padding: 0;
+    position: relative;
+}
+
+.modal-content {
+    background-color: #34495e;
+    opacity: .95;
 }
