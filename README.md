@@ -87,7 +87,7 @@ In this feature, users have the ability to classify which tasks are finishes and
 * [MaterializeCSS](https://materializecss.com/) - A modern responsive front-end framework based on Material Design
 * [Bootstrap](https://getbootstrap.com) - Responsive, mobile-first projects on the web with the world's most popular front-end component library
 
-## Authors
+## Authors 
 
 * **Emanual Donie Ypon** - *Initial work* - [Team8 - stuffToDo](https://github.com/donieypon/Team8)
 * **Huan Tran** - *Initial work* - [Team8 - stuffToDo](https://github.com/donieypon/Team8)
