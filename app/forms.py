@@ -1,11 +1,11 @@
 from flask_wtf import FlaskForm
-from wtforms import StringField, PasswordField, SubmitField, BooleanField
+from wtforms import StringField, PasswordField, SubmitField, BooleanField, TextAreaField
 from wtforms.validators import ValidationError, DataRequired, Email, EqualTo
 from app.models import User
 
 class LoginForm(FlaskForm):
-    username = StringField('Username', validators=[DataRequired()])
-    password = PasswordField('Password', validators=[DataRequired()])
+    username = StringField('Username', render_kw={"placeholder": "Enter Username"}, validators=[DataRequired()])
+    password = PasswordField('Password', render_kw={"placeholder": "Password"}, validators=[DataRequired()])
     remember_me = BooleanField('Remember Me')
     submit = SubmitField('Sign In')
 
@@ -26,3 +26,14 @@ class createAccount(FlaskForm):
         user = User.query.filter_by(email=email.data).first()
         if user is not None:
             raise ValidationError('Please use a valid email address.')
+
+class PostForm(FlaskForm):
+    nameTitle = StringField('nameTitle', validators=[DataRequired()])
+    content = TextAreaField('content')
+    complete = BooleanField('complete')
+    submit = SubmitField('Create')
+
+class addFriend(FlaskForm):
+    username = StringField('Username', validators=[DataRequired()], description="Enter friend's username")
+    message = StringField('Message', description="Send a message")
+    add = SubmitField('Add')

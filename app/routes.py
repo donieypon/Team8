@@ -1,13 +1,10 @@
-from flask import render_template, flash, redirect, url_for
-from app import app
-from app import db
-from app.forms import LoginForm
-from app.forms import createAccount
-from app.models import User
-from flask_login import current_user, login_user
+from flask import render_template, flash, redirect, url_for, request
+from app import app, db
+from app.forms import LoginForm, createAccount, PostForm #addFriend
+from app.models import User, Post #Friend
+from flask_login import current_user, login_user, login_required
 from flask_login import logout_user
 from flask_login import login_required
-from flask import request
 from werkzeug.urls import url_parse
 from flask_bootstrap import Bootstrap
 
@@ -17,17 +14,8 @@ Bootstrap(app)
 @app.route('/index')
 @login_required
 def index():
-    posts = [
-        {
-            'author': {'username': 'John'},
-            'body': 'Beautiful day in Portland!'
-        },
-        {
-            'author': {'username': 'Susan'},
-            'body': 'The Avengers movie was so cool!'
-        }
-    ]
-    return render_template('index.html', title='Home', posts=posts)
+    post = Post.query.all()
+    return render_template('index.html', user=current_user, post=post)
 
 @app.route('/login', methods=['GET', 'POST'])
 def login():
@@ -48,7 +36,7 @@ def login():
             next_page = url_for('index')
 
         return redirect(next_page)
-    return render_template('login.html', title='Sign in', form=form)
+    return render_template('LLogin.html', title='Sign in', form=form)
 
 @app.route('/logout')
 def logout():
@@ -68,3 +56,101 @@ def register():
         flash('Congratulations, you are now a registered user!')
         return redirect(url_for('login'))
     return render_template('register.html', title='Register', form=form)
+
+@app.route('/add', methods =['GET','POST'])
+@login_required
+def add(): 
+    form = PostForm()
+    if request.method == 'POST' :
+        nameTitle = request.form.get('nameTitle')
+        content = request.form.get('content')
+        post = Post(nameTitle = nameTitle, content = content, complete = False, author=current_user._get_current_object())
+        db.session.add(post)
+        db.session.commit()
+        flash('Successfully to create task!')
+        return redirect(url_for('index'))
+    return render_template('task.html',form=form, legend='Create Task', title='New Tasks')
+
+@app.route('/delete<int:id>')
+@login_required
+def delete(id):
+    post = Post.query.filter_by(id=id).first()
+    db.session.delete(post)
+    db.session.commit()
+    return redirect(url_for('index'))
+
+@app.route('/edit/<int:id>', methods=['GET','POST'])
+@login_required
+def edit(id): 
+    post = Post.query.filter_by(id = id).first()
+    form = PostForm()
+    if request.method == 'POST':
+            post.nameTitle = request.form.get('nameTitle')
+            post.content =  request.form.get('content')
+            post.complete = form.complete.data
+            db.session.commit()
+            flash('Successfully Editted', 'success')
+            return redirect(url_for('index'))
+    return render_template('task.html', title='Edit', legend='Edit Task', form=form, post=post)
+
+@app.route('/friends', methods=['GET', 'POST'])
+@login_required
+def friends():
+    if not current_user.is_authenticated:
+        return redirect(url_for('login'))
+
+    form = addFriend()
+    print('hi')
+    # if form.validate_on_submit():
+    #     user = User.query.filter_by(username=form.username.data).first()
+    #
+    #     #checks if friends
+    #     friendList = Friend.query.filter_by(user_id=current_user.id).all()
+    #     isFriend = False
+    #     for friend in friendList:
+    #         if friend.friend_username == user.username:
+    #             isFriend = True
+    #
+    #     #if user entered is valid, and not current user
+    #     if user and user != current_user:
+    #         # if friends or not friends
+    #         if isFriend:
+    #             flash('You are already friends with this user.')
+    #             return redirect(url_for('friends'))
+    #         else:
+    #             friend = Friend(author=current_user, friend_username=user.username, friend_id=user.id, friend_email=user.email)
+    #             db.create_all()
+    #             db.session.add(friend)
+    #             db.session.commit()
+    #             print(Friend.query.filter_by(user_id=current_user.id).all())
+    #             flash('You are now friends with ' + user.username + '.')
+    #             return redirect(url_for('friends'))
+    #
+    #     #if invalid name
+    #     else:
+    #         flash('Error. Please enter a valid username.')
+    #         return redirect(url_for('friends'))
+    #
+    #     #get friends of user
+    #
+    #     #friends = current_user.friends.all()
+    #     for friend in friends:
+    #         user = User.query.filter_by(username=friend.friend_username).first()
+    #         allFriends.append(friend.friend_username)
+
+    #return render_template('addFriend.html', form=form, friends=allFriends)
+
+    return render_template('addFriend.html', form=form)
+
+@app.route('/complete/<int:id>')
+@login_required
+def complete(id):
+    post = Post.query.filter_by(id = id).first()
+    post.complete = True
+    db.session.commit()
+    return redirect(url_for('index'))
+
+if __name__ =='__main__':
+    db.create_all()
+    app.run(debug=True)
+
