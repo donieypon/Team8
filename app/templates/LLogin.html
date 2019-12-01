@@ -15,7 +15,7 @@
     {% if title %}
       <title>{{ title }}</title>
       {% else %}
-      <title>Register</title>
+      <title>Sign In</title>
       {% endif %}
 
   </head>
@@ -27,31 +27,36 @@
                 <img src="/static/person.png" alt="person">
             </div>
             <div class="col-12 user-name">
-                <h1>Register</h1>
+                <h1>Sign In</h1>
             </div>
             <div class="col-12 form-input">
                 <form action="" method="post" class="login">
                     {{ form.hidden_tag() }}
                     <div class="form-group">
+<!--                        {{ form.username.label(class="form-control-label word")}}-->
                         {{ form.username(class="form-control form-control-lg")}}
                     </div>
                     <div class="form-group">
-                        {{ form.email(class="form-control form-control-lg")}}
-                    </div>
-                    <div class="form-group">
+<!--                        {{ form.password.label(class="form-control-label word") }}-->
                         {{ form.password(class="form-control form-control-lg") }}
                     </div>
                     <div class="form-group">
-                        {{ form.password2(class="form-control form-control-lg") }}
+                        <p style="color:white">{{ form.remember_me() }} Remember Me</p>
                     </div>
                     <p>
-                        <button type="submit" class="btn btn-success">Register</button>
+<!--                        {{ form.submit() }}-->
+                        <button type="submit" class="btn btn-success">Submit</button>
                     </p>
                 </form>
             </div>
+            <div class="col-12 link-part">
+                New user?
+                <a href="{{ url_for('register') }}">Register</a>
+            </div>
         </div>
     </div>
-    </div>
+
+</div>
 
     <!-- Optional JavaScript -->
     <!-- jQuery first, then Popper.js, then Bootstrap JS -->
