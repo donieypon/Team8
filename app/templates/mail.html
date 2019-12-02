@@ -1,0 +1,25 @@
+{% extends "base.html" %} {% block content %}
+<div>
+  <h1>SEND MESSAGE</h1>
+
+  <form action="{{ url_for('mes') }}" method="post" name="mail">
+    {{ form.hidden_tag() }}
+    <div>
+      <p>To: </p>
+      <input type="text" name="email" placeholder="Destination" required />
+      <br /><br />
+      <p>Subject: </p>
+      <input type="text" name="subject" placeholder="Message's Subject" />
+      <br /><br />
+      <p>Message: </p>
+      <textarea
+        name="content"
+        placeholder="Enter your message here"
+        contenteditable="true"
+      ></textarea>
+      <br /><br />
+      <button>Send</button>
+    </div>
+  </form>
+</div>
+{% endblock %}

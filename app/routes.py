@@ -1,14 +1,24 @@
 from flask import render_template, flash, redirect, url_for, request
 from app import app, db
-from app.forms import LoginForm, createAccount, PostForm #addFriend
-from app.models import User, Post #Friend
+from app.forms import LoginForm, createAccount, PostForm, mailForm
+from app.models import User, Post
 from flask_login import current_user, login_user, login_required
 from flask_login import logout_user
 from flask_login import login_required
 from werkzeug.urls import url_parse
 from flask_bootstrap import Bootstrap
+from flask_mail import Message, Mail
 
 Bootstrap(app)
+
+mail = Mail()
+app.config["MAIL_SERVER"] = "smtp.gmail.com"
+app.config["MAIL_PORT"] = 465
+app.config["MAIL_USE_SSL"] = True
+app.config["MAIL_USERNAME"] = 'stufftodocmpe131@gmail.com'
+app.config["MAIL_PASSWORD"] = 'cmpe131sjsu'
+
+mail.init_app(app)
 
 @app.route('/')
 @app.route('/index')
@@ -17,6 +27,7 @@ def index():
     post = Post.query.all()
     return render_template('index.html', user=current_user, post=post)
 
+#login
 @app.route('/login', methods=['GET', 'POST'])
 def login():
     if current_user.is_authenticated:
@@ -38,11 +49,17 @@ def login():
         return redirect(next_page)
     return render_template('LLogin.html', title='Sign in', form=form)
 
+#______________________________________________________________________________
+
+#logout
 @app.route('/logout')
 def logout():
     logout_user()
     return redirect(url_for('index'))
 
+#______________________________________________________________________________
+
+#register
 @app.route('/register', methods=['GET', 'POST'])
 def register():
     if current_user.is_authenticated:
@@ -57,6 +74,9 @@ def register():
         return redirect(url_for('login'))
     return render_template('register.html', title='Register', form=form)
 
+#______________________________________________________________________________
+
+#add task
 @app.route('/add', methods =['GET','POST'])
 @login_required
 def add(): 
@@ -71,6 +91,9 @@ def add():
         return redirect(url_for('index'))
     return render_template('task.html',form=form, legend='Create Task', title='New Tasks')
 
+#______________________________________________________________________________
+
+#delete task
 @app.route('/delete<int:id>')
 @login_required
 def delete(id):
@@ -79,6 +102,9 @@ def delete(id):
     db.session.commit()
     return redirect(url_for('index'))
 
+#______________________________________________________________________________
+
+#edit task
 @app.route('/edit/<int:id>', methods=['GET','POST'])
 @login_required
 def edit(id): 
@@ -93,6 +119,47 @@ def edit(id):
             return redirect(url_for('index'))
     return render_template('task.html', title='Edit', legend='Edit Task', form=form, post=post)
 
+#______________________________________________________________________________
+
+#complete task
+@app.route('/complete/<int:id>')
+@login_required
+def complete(id):
+    post = Post.query.filter_by(id = id).first()
+    post.complete = True
+    db.session.commit()
+    return redirect(url_for('index'))
+
+#______________________________________________________________________________
+
+#send email message
+
+
+
+
+@app.route('/mail', methods=['GET', 'POST'])
+def mes():
+    form = mailForm()
+    if request.method == "POST":
+        message = Message(form.subject.data, sender=current_user.email, recipients=[form.email.data], )
+        message.body = """
+            StuffToDo
+              
+                From:  %s 
+                Content: 
+                    %s 
+            """ % (
+            current_user.email,
+            form.content.data,
+        )
+        mail.send(message)
+        flash("Congratulation! Your message has been sent successfully!", "success")
+        return redirect(url_for("index"))
+    return render_template('mail.html', form =form)
+
+#______________________________________________________________________________
+
+#add friend
 @app.route('/friends', methods=['GET', 'POST'])
 @login_required
 def friends():
@@ -142,6 +209,8 @@ def friends():
 
     return render_template('addFriend.html', form=form)
 
+#______________________________________________________________________________
+
 #follow
 @app.route('/follow/<nickname>')
 @login_required
@@ -161,6 +230,8 @@ def follow(nickname):
     db.session.commit()
     flash('You are now following ' + nickname + '!')
     return redirect(url_for('user', nickname=nickname))
+
+#______________________________________________________________________________
 
 #unfollow
 @app.route('/unfollow/<nickname>')
@@ -182,13 +253,7 @@ def unfollow(nickname):
     flash('You have stopped following ' + nickname + '.')
     return redirect(url_for('user', nickname=nickname))
 
-@app.route('/complete/<int:id>')
-@login_required
-def complete(id):
-    post = Post.query.filter_by(id = id).first()
-    post.complete = True
-    db.session.commit()
-    return redirect(url_for('index'))
+#______________________________________________________________________________
 
 if __name__ =='__main__':
     db.create_all()

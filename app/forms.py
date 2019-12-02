@@ -3,6 +3,7 @@ from wtforms import StringField, PasswordField, SubmitField, BooleanField, TextA
 from wtforms.validators import ValidationError, DataRequired, Email, EqualTo
 from app.models import User
 
+
 class LoginForm(FlaskForm):
     username = StringField('Username', render_kw={"placeholder": "Enter Username"}, validators=[DataRequired()])
     password = PasswordField('Password', render_kw={"placeholder": "Password"}, validators=[DataRequired()])
@@ -37,3 +38,10 @@ class addFriend(FlaskForm):
     username = StringField('Username', validators=[DataRequired()], description="Enter friend's username")
     message = StringField('Message', description="Send a message")
     add = SubmitField('Add')
+
+class mailForm(FlaskForm):
+    email = StringField('Email', validators=[DataRequired()])
+    subject = StringField('Subject')
+    content = TextAreaField('content', validators=[DataRequired()])
+    submit = SubmitField('Send')
+    
