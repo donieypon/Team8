@@ -153,7 +153,34 @@ def mes():
         mail.send(message)
         flash("Congratulation! Your message has been sent successfully!", "success")
         return redirect(url_for("index"))
-    return render_template('mail.html', form =form)
+    return render_template('mail.html', title="Send Message", legend="Send Message", form =form)
+
+#______________________________________________________________________________
+
+#share task
+
+@app.route('/share', methods=['GET', 'POST'])
+def share():
+    form = mailForm()
+    post = Post.query.filter_by(id = id).first()
+    if request.method == "POST":
+        message = Message(subject='Task Shared', sender=current_user.email, recipients=[form.email.data], )
+        message.body = """
+            StuffToDo
+              
+                From:  %s 
+                Content: 
+                    %s 
+                    %s
+            """ % (
+            current_user.email,
+            post.nameTitle,
+            post.content,
+        )
+        mail.send(message)
+        flash("Congratulation! Your message has been sent successfully!", "success")
+        return redirect(url_for('index'))
+    return render_template('mail.html', title='Share Task', legend='Share Task', form=form, post=post)
 
 #______________________________________________________________________________
 
