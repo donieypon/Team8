@@ -64,6 +64,7 @@ def logout():
 def register():
     if current_user.is_authenticated:
         return redirect(url_for('index'))
+
     form = createAccount()
     if form.validate_on_submit():
         user = User(username=form.username.data, email=form.email.data)
@@ -71,7 +72,7 @@ def register():
         db.session.add(user)
         db.session.commit()
         flash('Congratulations, you are now a registered user!')
-        return redirect(url_for('login'))
+        return redirect(url_for('index'))
     return render_template('register.html', title='Register', form=form)
 
 #______________________________________________________________________________
@@ -84,12 +85,12 @@ def add():
     if request.method == 'POST' :
         nameTitle = request.form.get('nameTitle')
         content = request.form.get('content')
-        post = Post(nameTitle = nameTitle, content = content, complete = False, author=current_user._get_current_object())
+        post = Post(nameTitle=nameTitle, content=content, complete=False, author=current_user._get_current_object())
         db.session.add(post)
         db.session.commit()
-        flash('Successfully to create task!')
+        flash('Successfully created a task!')
         return redirect(url_for('index'))
-    return render_template('task.html',form=form, legend='Create Task', title='New Tasks')
+    return render_template('task.html', form=form, legend='Create Task', title='New Tasks')
 
 #______________________________________________________________________________
 
@@ -133,9 +134,6 @@ def complete(id):
 #______________________________________________________________________________
 
 #send email message
-
-
-
 
 @app.route('/mail', methods=['GET', 'POST'])
 def mes():
@@ -252,6 +250,16 @@ def unfollow(nickname):
     db.session.commit()
     flash('You have stopped following ' + nickname + '.')
     return redirect(url_for('user', nickname=nickname))
+
+# @app.route('/user/<username>')
+# @login_required
+# def user1(username):
+#     user = User.query.filter_by(username=username).first()
+#     if user is None:
+#         flash('User %s is not found.' % username)
+#         return redirect(url_for('index'))
+#
+#     return render_template('profile.html', user=user)
 
 #______________________________________________________________________________
 
