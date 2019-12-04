@@ -38,7 +38,7 @@ def login():
         # look at first result first()
         user = User.query.filter_by(username=form.username.data).first()
         if user is None or not user.check_password(form.password.data):
-            flash('Invalid username or password')
+            flash('Invalid username or password', 'danger')
             return redirect(url_for('login'))
         login_user(user, remember=form.remember_me.data)
         # return to page before user got asked to login
@@ -53,6 +53,7 @@ def login():
 
 #logout
 @app.route('/logout')
+@login_required
 def logout():
     logout_user()
     return redirect(url_for('index'))
@@ -71,7 +72,7 @@ def register():
         user.set_password(form.password.data)
         db.session.add(user)
         db.session.commit()
-        flash('Congratulations, you are now a registered user!')
+        flash('Congratulations, you are now a registered user!', 'success')
         return redirect(url_for('index'))
     return render_template('register.html', title='Register', form=form)
 
@@ -88,7 +89,7 @@ def add():
         post = Post(nameTitle=nameTitle, content=content, complete=False, author=current_user._get_current_object())
         db.session.add(post)
         db.session.commit()
-        flash('Successfully created a task!')
+        flash('Successfully created a task!', 'success')
         return redirect(url_for('index'))
     return render_template('task.html', form=form, legend='Create Task', title='New Tasks')
 
@@ -116,7 +117,7 @@ def edit(id):
             post.content =  request.form.get('content')
             post.complete = form.complete.data
             db.session.commit()
-            flash('Successfully Editted', 'success')
+            flash('Successfully Edited', 'success')
             return redirect(url_for('index'))
     return render_template('task.html', title='Edit', legend='Edit Task', form=form, post=post)
 
