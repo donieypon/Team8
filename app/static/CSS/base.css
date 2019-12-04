@@ -13,20 +13,16 @@ input, textarea {
 
 .main-section {
     margin: 0 auto;
-    margin-top: 150px;
+    margin-top: 100px;
     padding: 0;
     position: relative;
     border-radius: 5px;
-    box-shadow: 5px 10px #888888;
+    box-shadow: 5px 5px 5px #888888;
 }
 
 .modal-content {
     background-color: #34495e;
     opacity: .95;
-}
-
-.left-side {
-    
 }
 
 .a-task {
