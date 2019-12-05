@@ -19,10 +19,15 @@
 
         <!-- CSS Stylesheets -->
         <link rel="stylesheet" href="{{ url_for('static', filename='CSS/base.css') }}">
-
+        <style>
+            body{
+                background-image: linear-gradient(120deg, #dcdde1, #273c75) ;
+                min-height: 100vh;
+            }
+        </style>
 
     </head>
-    <body>
+    <body style="background-color: red">
 
         <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
             <a class="navbar-brand" href="#">StuffToDo</a>
@@ -32,15 +37,11 @@
 
             <div class="collapse navbar-collapse" id="navbarSupportedContent">
                 <ul class="navbar-nav mr-auto">
-
                     <li class="nav-item active">
                         <a class="nav-link" href="{{ url_for('index') }}">Home<span class="sr-only">(current)</span></a>
                     </li>
                     <li class="nav-item active">
                         <a class="nav-link" href="{{ url_for('add') }}">Create Task<span class="sr-only">(current)</span></a>
-                    </li>
-                    <li class="nav-item active">
-                            <a class="nav-link" href="{{ url_for('mes') }}">Message<span class="sr-only">(current)</span></a>
                     </li>
                     <li class="nav-item active">
                         {% if current_user.is_anonymous %}
@@ -52,6 +53,19 @@
                 </ul>
             </div>
         </nav>
+
+<!--        <div>-->
+<!--        StuffToDo: -->
+<!--            <a href="{{ url_for('index') }}">&nbsp;<i class="material-icons">home</i>&nbsp;</a>-->
+<!--            <a href="{{ url_for('add') }}">&nbsp;Create Task&nbsp;</a>-->
+<!--            &lt;!&ndash;<a href="{{ url_for('friends') }}">Add a Friend</a>&ndash;&gt;-->
+<!--            {% if current_user.is_anonymous %}-->
+<!--            <a href="{{ url_for('login') }}">&nbsp;Login&nbsp;</a>-->
+<!--            {% else %}-->
+<!--            <a href="{{ url_for('logout') }}">&nbsp;Logout&nbsp;</a>-->
+<!--            {% endif %}-->
+
+<!--        </div>-->
 
         {% with messages = get_flashed_messages() %}
         {% if messages %}
