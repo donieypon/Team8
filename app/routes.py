@@ -159,25 +159,14 @@ def mes():
 
 #share task
 
-@app.route('/share', methods=['GET', 'POST'])
-def share():
+@app.route('/share/<int:id>', methods=['GET', 'POST'])
+def share(id):
     form = mailForm()
     post = Post.query.filter_by(id = id).first()
     if request.method == "POST":
-        message = Message(subject='Task Shared', sender=current_user.email, recipients=[form.email.data], )
-        message.body = """
-            StuffToDo
-              
-                From:  %s 
-                Content: 
-                    %s 
-                    %s
-            """ % (
-            current_user.email,
-            post.nameTitle,
-            post.content,
-        )
-        mail.send(message)
+        shareTask = Message(subject='Task Shared', sender=current_user.email, recipients=[form.email.data], )
+        shareTask.html = render_template('share.html', form=form, post=post)
+        mail.send(shareTask)
         flash("Congratulation! Your message has been sent successfully!", "success")
         return redirect(url_for('index'))
     return render_template('mail.html', title='Share Task', legend='Share Task', form=form, post=post)
