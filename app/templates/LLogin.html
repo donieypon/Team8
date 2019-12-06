@@ -30,6 +30,21 @@
                 <h1>Sign In</h1>
             </div>
             <div class="col-12 form-input">
+                {% with messages = get_flashed_messages(with_categories=true) %}
+                    {% if messages %}
+                        {% for category, message in messages %}
+                            {% if category == 'success' %}
+                            <div class="alert alert-success - {{ category }}">
+                                        {{ message }}
+                            </div>
+                            {% else %}
+                            <div class="alert alert-danger -{{ category }}">
+                                {{ message }}
+                            </div>
+                            {% endif %}
+                        {% endfor %}
+                    {% endif %}
+                {% endwith %}
                 <form action="" method="post" class="login">
                     {{ form.hidden_tag() }}
                     <div class="form-group">
