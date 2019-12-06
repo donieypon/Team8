@@ -144,7 +144,7 @@ def mes():
         message.body = """
             StuffToDo
               
-                From:  %s 
+                %s sent a mesage.
                 Content: 
                     %s 
             """ % (
@@ -154,7 +154,7 @@ def mes():
         mail.send(message)
         flash("Congratulation! Your message has been sent successfully!", "success")
         return redirect(url_for("index"))
-    return render_template('mail.html', title="Send Message", legend="Send Message", form =form)
+    return render_template('mail.html', title="Send Message", legend="Send Message", form =form, url='mes')
 
 #______________________________________________________________________________
 
@@ -166,11 +166,22 @@ def share(id):
     post = Post.query.filter_by(id = id).first()
     if request.method == "POST":
         shareTask = Message(subject='Task Shared', sender=current_user.email, recipients=[form.email.data], )
-        shareTask.html = render_template('share.html', form=form, post=post)
+        shareTask.body = """
+            StuffToDo
+              
+                %s shared a task.
+                Content: 
+                    Name of Task: %s
+                    Task Description: %s 
+            """ % (
+            current_user.email,
+            post.nameTitle,
+            post.content,
+        )
         mail.send(shareTask)
         flash("Congratulation! Your message has been sent successfully!", "success")
         return redirect(url_for('index'))
-    return render_template('mail.html', title='Share Task', legend='Share Task', form=form, post=post)
+    return render_template('mail.html', title='Share Task', legend='Share Task', form=form, post=post, url='share')
 
 #______________________________________________________________________________
 
