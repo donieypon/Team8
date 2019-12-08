@@ -1,6 +1,6 @@
 from flask_wtf import FlaskForm
 from wtforms import StringField, PasswordField, SubmitField, BooleanField, TextAreaField
-from wtforms.validators import ValidationError, DataRequired, Email, EqualTo
+from wtforms.validators import ValidationError, DataRequired, Email, EqualTo, Length
 from app.models import User
 
 
@@ -44,4 +44,10 @@ class mailForm(FlaskForm):
     subject = StringField('Subject')
     content = TextAreaField('content', validators=[DataRequired()])
     submit = SubmitField('Send')
-    
+
+class emailForm(FlaskForm):
+    email = StringField('Email', render_kw={"placeholder:" "Enter Email"}, validators=[DataRequired(), Email(), Length(min=6, max=40)])
+
+class newPasswordForm(FlaskForm):
+    password = PasswordField('Password', render_kw={"placeholder:" "Enter a new password"}, validators=[DataRequired()])
+
