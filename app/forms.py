@@ -45,9 +45,8 @@ class mailForm(FlaskForm):
     content = TextAreaField('content', validators=[DataRequired()])
     submit = SubmitField('Send')
 
-class emailForm(FlaskForm):
-    email = StringField('Email', render_kw={"placeholder:" "Enter Email"}, validators=[DataRequired(), Email(), Length(min=6, max=40)])
+class forgotForm(FlaskForm):
+    email = StringField('Email', render_kw={"placeholder": "Enter Email"}, validators=[DataRequired()])
 
-class newPasswordForm(FlaskForm):
-    password = PasswordField('Password', render_kw={"placeholder:" "Enter a new password"}, validators=[DataRequired()])
-
+class PasswordResetForm(FlaskForm):
+    current_password = PasswordField('Current Password', validators=[DataRequired()])

@@ -1,6 +1,6 @@
 from flask import render_template, flash, redirect, url_for, request
 from app import app, db
-from app.forms import LoginForm, createAccount, PostForm, mailForm, emailForm, newPasswordForm
+from app.forms import LoginForm, createAccount, PostForm, mailForm, forgotForm
 from app.models import User, Post
 from flask_login import current_user, login_user, login_required
 from flask_login import logout_user
@@ -293,71 +293,24 @@ def unfollow(nickname):
 #______________________________________________________________________________
 
 #reset password
-@app.route('/sendReset')
-def sendReset(subject, recipients, text_body, html_body):
-    msg = Message(subject, recipients=recipients)
-    msg.body = text_body
-    msg.html = html_body
-    mail.send(msg)
-
-def resetPassword(userEmail):
-    password_reset_serializer = URLSafeTimedSerializer(app.config['SECRET_KEY'])
-
-    password_reset_url = url_for(
-        'users.reset_with_token',
-        token=password_reset_serializer.dumps(userEmail, salt='password-reset-salt'),
-        _external=True)
-
-    html = render_template(
-        'email_password_reset.html',
-        password_reset_url=password_reset_url)
-
-    sendReset('Password Reset Requested', [userEmail], html)
-
-@app.route('/reset', methods=["GET", "POST"])
-def reset():
-    form = emailForm()
-
+@app.route('/forgot', methods=["GET", "POST"])
+def forgot():
+    form=forgotForm()
     if form.validate_on_submit():
-        user = User.query.filter_by(username=form.email.data).first()
-        if user is None:
-            flash('Invalid email address!', 'error')
-            # return render_template('passwordReset.html', form=form, title='Reset Password')
-            return redirect(url_for('reset'))
+        user = User.objects.filter(email=form.email.data.lower()).first()
+        if user:
+            code = str(uuid.uuid4())
+            user.change_configuration={
+                "password_reset_code": code
+            }
+            user.save()
 
-        sendReset(user.email)
-        flash('Please check your email for a password reset link.', 'success')
-        return redirect(url_for('login'))
+            #email the user the code
+            body_html = render_template('passwordReset.html', user=user)
+            body_text = render_template('passwordReset.txt', user=user)
+            mes(user.email, "Password reset request", body_html, body_text)
 
-    return render_template('passwordReset.html', form=form, title='Reset Password')
-
-#reset link only valid for 1hr
-@app.route('/reset/<token>', methods=["GET", "POST"])
-def reset_with_token(token):
-    try:
-        password_reset_serializer = URLSafeTimedSerializer(app.config['SECRET_KEY'])
-        email = password_reset_serializer.loads(token, salt='password-reset-salt', max_age=3600)
-    except:
-        flash('The password reset link is invalid or has expired.', 'error')
-        return redirect(url_for('login'))
-
-    form = newPasswordForm()
-
-    if form.validate_on_submit():
-        try:
-            user = User.query.filter_by(email=email).first_or_404()
-        except:
-            flash('Invalid email address!', 'error')
-            return redirect(url_for('login'))
-
-        user.password = form.password.data
-        db.session.add(user)
-        db.session.commit()
-        flash('Your password has been updated!', 'success')
-        return redirect(url_for('login'))
-
-    return render_template('resetPasswordWithToken.html', form=form, token=token)
-
+    return render_template('forgotPassword.html', title="Reset Password", form=form)
 
 #_________________________________________________________________________________________
 
