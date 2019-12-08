@@ -40,6 +40,7 @@
                         <div class="col-lg-4 col-sm-6 a-task">
                             <h3 style="color: white;">{{post.nameTitle}}</h3>
                             <p style="color: white;">{{post.content}}</p>
+                            <a href="{{ url_for('share', id = post.id) }}">share</a>
                             <a href="{{ url_for('delete', id = post.id) }}"><i class="material-icons">delete</i></a>
                         </div>
                     {% endif %}

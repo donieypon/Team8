@@ -145,7 +145,7 @@ def mes():
         message.body = """
             StuffToDo
               
-                From:  %s 
+                %s sent a mesage.
                 Content: 
                     %s 
             """ % (
@@ -155,34 +155,34 @@ def mes():
         mail.send(message)
         flash("Congratulation! Your message has been sent successfully!", "success")
         return redirect(url_for("index"))
-    return render_template('mail.html', title="Send Message", legend="Send Message", form =form)
+    return render_template('mail.html', title="Send Message", legend="Send Message", form =form, url='mes')
 
 #______________________________________________________________________________
 
 #share task
 
-@app.route('/share', methods=['GET', 'POST'])
-def share():
+@app.route('/share/<int:id>', methods=['GET', 'POST'])
+def share(id):
     form = mailForm()
     post = Post.query.filter_by(id = id).first()
     if request.method == "POST":
-        message = Message(subject='Task Shared', sender=current_user.email, recipients=[form.email.data], )
-        message.body = """
+        shareTask = Message(subject='Task Shared', sender=current_user.email, recipients=[form.email.data], )
+        shareTask.body = """
             StuffToDo
               
-                From:  %s 
+                %s shared a task.
                 Content: 
-                    %s 
-                    %s
+                    Name of Task: %s
+                    Task Description: %s 
             """ % (
             current_user.email,
             post.nameTitle,
             post.content,
         )
-        mail.send(message)
+        mail.send(shareTask)
         flash("Congratulation! Your message has been sent successfully!", "success")
         return redirect(url_for('index'))
-    return render_template('mail.html', title='Share Task', legend='Share Task', form=form, post=post)
+    return render_template('mail.html', title='Share Task', legend='Share Task', form=form, post=post, url='share')
 
 #______________________________________________________________________________
 
