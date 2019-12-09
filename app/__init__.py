@@ -6,15 +6,38 @@ from flask_login import LoginManager
 from flask_bcrypt import Bcrypt
 from flask_mail import Message, Mail
 
-app = Flask(__name__)
-app.config.from_object(Config)
+db = SQLAlchemy()
+login = LoginManager()
 
-bcrypt = Bcrypt(app)
+def create_app(debug=False, test_config=None):
+	app = Flask(__name__)
+	app.debug = debug
+	app.config.from_object(Config)
 
-db = SQLAlchemy(app)
+	if test_config is None:
+		app.config.from_object('config.Config')
+	else:
+		app.config.from_mapping('config.Config')	
 
-login = LoginManager(app)
+	db.init_app(app)
+	login.init_app(app)
+	login.login_view = 'login'	
 
-login.login_view = 'login'
+	with app.app_context():
+		from . import routes, models
+		db.create_all()
+		return app
 
-from app import routes, models
+
+# app = Flask(__name__)
+# app.config.from_object(Config)
+
+# bcrypt = Bcrypt(app)
+
+# db = SQLAlchemy(app)
+
+# login = LoginManager(app)
+
+# login.login_view = 'login'
+
+# from app import routes, models
