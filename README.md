@@ -14,12 +14,14 @@ Python 3.6 with pip required extensions:
 2. Flask-SQLAlchemy
 3. Flask-WTF
 4. Flask-Login
-5. WTForms
-6. SQLAlchemy
-7. Flask-Bootstrap
-8. Werkzeug
-9. Jinja2
-10. datetime
+5. Flask-Mail
+6. Flask-bcrypt
+7. WTForms
+8. SQLAlchemy
+9. Flask-Bootstrap
+10. Werkzeug
+11. Jinja2
+12. datetime
 
 ### Installing
 
