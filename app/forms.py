@@ -44,4 +44,4 @@ class mailForm(FlaskForm):
     subject = StringField('Subject')
     content = TextAreaField('content', validators=[DataRequired()])
     submit = SubmitField('Send')
-    
+
