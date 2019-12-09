@@ -25,12 +25,22 @@ mail.init_app(app)
 @app.route('/index')
 @login_required
 def index():
+    '''Main home page
+
+        *login required*
+
+        :return: Display all of user's Tasks
+    '''
     post = Post.query.all()
     return render_template('index.html', user=current_user, post=post)
 
 #login
 @app.route('/login', methods=['GET', 'POST'])
 def login():
+    '''Login
+
+        :return: Display the login page user to login to app
+    '''
     if current_user.is_authenticated:
         return redirect(url_for('index'))
 
@@ -56,6 +66,12 @@ def login():
 @app.route('/logout')
 @login_required
 def logout():
+    '''Logout
+
+    *login required*
+
+    :return: Logs user out of account and redirected to login page
+    '''
     logout_user()
     return redirect(url_for('index'))
 
@@ -64,6 +80,10 @@ def logout():
 #register
 @app.route('/register', methods=['GET', 'POST'])
 def register():
+    '''Registration for new users
+
+    :return: If user enters valid email and password, user's credentials are saved to db
+    '''
     if current_user.is_authenticated:
         return redirect(url_for('index'))
 
@@ -82,7 +102,11 @@ def register():
 #add task
 @app.route('/add', methods =['GET','POST'])
 @login_required
-def add(): 
+def add():
+    '''Create a new task
+
+    :return: Creates a new task that is saved in the db
+    '''
     form = PostForm()
     if request.method == 'POST' :
         nameTitle = request.form.get('nameTitle')
@@ -100,6 +124,12 @@ def add():
 @app.route('/delete<int:id>')
 @login_required
 def delete(id):
+    '''Delete Note by id
+
+        *login required*
+
+        :return: Delete Note by id
+    '''
     post = Post.query.filter_by(id=id).first()
     db.session.delete(post)
     db.session.commit()
@@ -110,7 +140,13 @@ def delete(id):
 #edit task
 @app.route('/edit/<int:id>', methods=['GET','POST'])
 @login_required
-def edit(id): 
+def edit(id):
+    '''Edit Note page
+
+        *login required*
+
+        :return: Get task data by id, check task's owner and if task's is writable
+    '''
     post = Post.query.filter_by(id = id).first()
     form = PostForm()
     if request.method == 'POST':
@@ -128,6 +164,11 @@ def edit(id):
 @app.route('/complete/<int:id>')
 @login_required
 def complete(id):
+    ''' Mark task as complete
+
+    :param id:
+    :return: Get task by id, classify as complete
+    '''
     post = Post.query.filter_by(id = id).first()
     post.complete = True
     db.session.commit()
@@ -139,6 +180,10 @@ def complete(id):
 
 @app.route('/mail', methods=['GET', 'POST'])
 def mes():
+    '''Send message to other user's via email
+
+    :return: Form to fill in a message and send via Flask mail
+    '''
     form = mailForm()
     if request.method == "POST":
         message = Message(form.subject.data, sender=current_user.email, recipients=[form.email.data], )
@@ -163,6 +208,11 @@ def mes():
 
 @app.route('/share/<int:id>', methods=['GET', 'POST'])
 def share(id):
+    '''Share tasks with other users
+
+    :param id:
+    :return: User shares a task with other users through email via Flask mail
+    '''
     form = mailForm()
     post = Post.query.filter_by(id = id).first()
     if request.method == "POST":
@@ -186,103 +236,12 @@ def share(id):
 
 #______________________________________________________________________________
 
-#add friend
-@app.route('/friends', methods=['GET', 'POST'])
-@login_required
-def friends():
-    if not current_user.is_authenticated:
-        return redirect(url_for('login'))
-
-    form = addFriend()
-    print('hi')
-    # if form.validate_on_submit():
-    #     user = User.query.filter_by(username=form.username.data).first()
-    #
-    #     #checks if friends
-    #     friendList = Friend.query.filter_by(user_id=current_user.id).all()
-    #     isFriend = False
-    #     for friend in friendList:
-    #         if friend.friend_username == user.username:
-    #             isFriend = True
-    #
-    #     #if user entered is valid, and not current user
-    #     if user and user != current_user:
-    #         # if friends or not friends
-    #         if isFriend:
-    #             flash('You are already friends with this user.')
-    #             return redirect(url_for('friends'))
-    #         else:
-    #             friend = Friend(author=current_user, friend_username=user.username, friend_id=user.id, friend_email=user.email)
-    #             db.create_all()
-    #             db.session.add(friend)
-    #             db.session.commit()
-    #             print(Friend.query.filter_by(user_id=current_user.id).all())
-    #             flash('You are now friends with ' + user.username + '.')
-    #             return redirect(url_for('friends'))
-    #
-    #     #if invalid name
-    #     else:
-    #         flash('Error. Please enter a valid username.')
-    #         return redirect(url_for('friends'))
-    #
-    #     #get friends of user
-    #
-    #     #friends = current_user.friends.all()
-    #     for friend in friends:
-    #         user = User.query.filter_by(username=friend.friend_username).first()
-    #         allFriends.append(friend.friend_username)
-
-    #return render_template('addFriend.html', form=form, friends=allFriends)
-
-    return render_template('addFriend.html', form=form)
-
-#______________________________________________________________________________
-
-#follow
-@app.route('/follow/<nickname>')
-@login_required
-def follow(nickname):
-    user = User.query.filter_by(nickname=nickname).first()
-    if user is None:
-        flash('User %s not found.' % nickname)
-        return redirect(url_for('index'))
-    if user == g.user:
-        flash('You can\'t follow yourself!')
-        return redirect(url_for('user', nickname=nickname))
-    u = g.user.follow(user)
-    if u is None:
-        flash('Cannot follow ' + nickname + '.')
-        return redirect(url_for('user', nickname=nickname))
-    db.session.add(u)
-    db.session.commit()
-    flash('You are now following ' + nickname + '!')
-    return redirect(url_for('user', nickname=nickname))
-
-#______________________________________________________________________________
-
-#unfollow
-@app.route('/unfollow/<nickname>')
-@login_required
-def unfollow(nickname):
-    user = User.query.filter_by(nickname=nickname).first()
-    if user is None:
-        flash('User %s not found.' % nickname)
-        return redirect(url_for('index'))
-    if user == g.user:
-        flash('You can\'t unfollow yourself!')
-        return redirect(url_for('user', nickname=nickname))
-    u = g.user.unfollow(user)
-    if u is None:
-        flash('Cannot unfollow ' + nickname + '.')
-        return redirect(url_for('user', nickname=nickname))
-    db.session.add(u)
-    db.session.commit()
-    flash('You have stopped following ' + nickname + '.')
-    return redirect(url_for('user', nickname=nickname))
-
-#______________________________________________________________________________
-
 def sendResetEmail(user):
+    '''Email with reset link
+
+    :param user:
+    :return: An email is sent to user after requesting a reset link
+    '''
     token = user.getResetToken()
     msg = Message('Password Reset Request', sender='noreply@stuffToDo.com', recipients=[user.email])
     msg.body = f'''To reset your password, visit the following link:
@@ -293,6 +252,10 @@ If you did not make this request, ignore this email and no changes will be made.
 
 @app.route('/reset_password', methods=['GET', 'POST'])
 def resetRequest():
+    '''Forgot password option on login
+
+    :return: Redirects user to a template, prompts user to enter an email to reset password
+    '''
     if current_user.is_authenticated:
         return redirect(url_for('index'))
     form = forgotForm()
@@ -305,6 +268,11 @@ def resetRequest():
 
 @app.route("/reset_password/<token>", methods=['GET', 'POST'])
 def resetToken(token):
+    '''Generates a link for reset
+
+    :param token:
+    :return: Link is sent via email to user who requests a reset, only valid for 30 mins
+    '''
     if current_user.is_authenticated:
         return redirect(url_for('index'))
     user = User.verifyResetToken(token)
