@@ -46,7 +46,15 @@ class mailForm(FlaskForm):
     submit = SubmitField('Send')
 
 class forgotForm(FlaskForm):
-    email = StringField('Email', render_kw={"placeholder": "Enter Email"}, validators=[DataRequired()])
+    email = StringField('Email', render_kw={"placeholder": "Enter Email"}, validators=[DataRequired(), Email()])
+    submit = SubmitField('Request Password Reset')
 
-class PasswordResetForm(FlaskForm):
-    current_password = PasswordField('Current Password', validators=[DataRequired()])
+    def validate_email(self, email):
+        user = User.query.filter_by(email=email.data).first()
+        if user is None:
+            raise ValidationError('There is no account with that email. You must register first.')
+
+class passwordResetForm(FlaskForm):
+    password = PasswordField('Password', validators=[DataRequired()])
+    confirmPassword = PasswordField('Confirm Password', validators=[DataRequired(), EqualTo('password')])
+    submit = SubmitField('Reset Password')

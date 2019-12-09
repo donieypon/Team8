@@ -21,7 +21,7 @@
   </head>
   <body>
     <div class="modal-dialog text-center">
-    <div class="col-sm-8 main-section">
+    <div class="col-sm-12 main-section">
         <div class="modal-content">
             <div class="col-12 user-img">
                 <img src="/static/person.png" alt="person">
@@ -30,18 +30,25 @@
                 <h1>Reset Password</h1>
             </div>
             <div class="col-12 form-input">
+                <form action="{{ url_for('resetRequest') }}" method="post" class="login">
+                    <!-- {{ form.hidden_tag() }}
+                    {{ form.csrf_token }} -->
 
-                <form action="{{ url_for('users.reset_with_token', token=token) }}" method="post">
-                    {{ form.hidden_tag() }}
-                    {{ form.csrf_token }}
+                    <p style="color: white;">Please enter an email and a reset link will be sent</p>
+
                     <div class="form-group">
                         {{ form.password(class="form-control form-control-lg")}}
                     </div>
-                    <p>
-                        <button type="submit" class="btn btn-success">Submit</button>
-                    </p>
+                    <div class="form-group">
+                        {{ form.confirmPassword(class="form-control form-control-lg")}}
+                    </div>
+                    <div class="form-group">
+                        {{ form.submit(class="btn btn-outline-info") }}
+                    </div>
+<!--                    <p>-->
+<!--                        <button type="submit" class="btn btn-success">Send</button>-->
+<!--                    </p>-->
                 </form>
-
             </div>
         </div>
     </div>
