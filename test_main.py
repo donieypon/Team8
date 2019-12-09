@@ -37,6 +37,11 @@ def test_new_task(new_task):
   assert new_task.nameTitle == 'Test'
   assert new_task.complete == False
   
-  
+
+# Pytest 5
+# testing content is not empty
+def test_content(new_task):
+    assert new_task.content != None
+      
 
 
