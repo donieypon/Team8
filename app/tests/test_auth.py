@@ -22,7 +22,7 @@ def test_verify_user_exists(db):
     
 def test_valid_register(client, db):
     response = client.post('/login',
-                           data=dict(uasername='huan98', email='huan98@testing.com',
+                           data=dict(username='huan98', email='huan98@testing.com',
                                      password='huan98', password2='huan98'),
                            follow_redirects=True)
     assert response.status_code == 200  
@@ -50,7 +50,7 @@ def test_user_requires_login(client):
 
 def test_finish(client,db):
      response = client.post('/login',
-                           data=dict(uasername='huan98', password='huan98'),
+                           data=dict(username='huan98', password='huan98'),
                            follow_redirects=True) 
 
      response = client.post("/edit", data=dict(status=True), follow_redirects=True )
