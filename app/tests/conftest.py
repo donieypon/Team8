@@ -30,8 +30,10 @@ def client(app_context):
 
 @pytest.fixture(scope='module')
 def db(app_context):
-
+    
     from app.models import User
+    from app.models import Post
+    from app.forms import LoginForm
     from app import db
     db.create_all()
 
