@@ -61,8 +61,6 @@ class mailForm(FlaskForm):
     content = TextAreaField('content', validators=[DataRequired()])
     submit = SubmitField('Send')
 
-<<<<<<< HEAD
-=======
 class forgotForm(FlaskForm):
     '''
     Class handles request for reset of password; used by resetRequest()
@@ -87,4 +85,3 @@ class passwordResetForm(FlaskForm):
     password = PasswordField('Password', validators=[DataRequired()])
     confirmPassword = PasswordField('Confirm Password', validators=[DataRequired(), EqualTo('password')])
     submit = SubmitField('Reset Password')
->>>>>>> c929c69bf90a7b7a16ebc8d69d2c8fde0017f3fd

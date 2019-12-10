@@ -13,12 +13,12 @@ class User(UserMixin, db.Model):
     email = db.Column(db.String(128), index=True, unique=True)
     password_hash = db.Column(db.String(128))
     posts = db.relationship('Post', backref='author', lazy='dynamic')
-    followed = db.relationship('User',
+    '''followed = db.relationship('User',
                                secondary=followers,
                                primaryjoin=(followers.c.follower_id == id),
                                secondaryjoin=(followers.c.followed_id == id),
                                backref=db.backref('followers', lazy='dynamic'),
-                               lazy='dynamic')
+                               lazy='dynamic')'''
 
     def set_password(self, password):
         self.password_hash = generate_password_hash(password)
