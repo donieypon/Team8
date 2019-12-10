@@ -27,6 +27,9 @@ test_main.py .....                                                       [100%]
 
 As busy college students, one of the biggest challenges we face is keeping track of all the things to do. Students have many classes throughout the day, multiple assignments to do, study for other classes, and may have their own errands to run. With this issue in mind, our group felt this to be an interesting challenge to take on and decided to create **stuffToDo**. 
 
+### App live heroku link:
+https://stufftodo.herokuapp.com/
+
 ## Getting Started
 
 The computer should have Python version 3.6 as well as pip installed to setup a localhost web server to serve for the development of the project.
@@ -112,6 +115,14 @@ Users have the ability to send a message to other users who want to share their 
 
 ### Reset Password
 Users have the ability to reset their password. Reset link will be sent to users through email when requested.
+
+## Testing location: app/tests
+
+## Sphinx Documentation location: docs/build/html/index.html
+In the docs directory use:
+'''
+open build/html/index.html
+'''
 
 ## Built With
 
