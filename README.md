@@ -91,7 +91,7 @@ Users have the ability to send a message to other users who want to share their 
 ### Reset Password
 Users have the ability to reset their password. Reset link will be sent to users through email when requested.
 
-## Testing location: app/tests
+## Testing location: Team8/app/tests
 
 ## Sphinx Documentation location: docs/build/html/index.html
 In the docs directory use:
