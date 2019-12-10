@@ -50,7 +50,7 @@ def test_user_requires_login(client):
 
 def test_finish(client,db):
      response = client.post('/login',
-                           data=dict(uasername='huan89', password='huan89'),
+                           data=dict(uasername='huan98', password='huan98'),
                            follow_redirects=True) 
 
      response = client.post("/edit", data=dict(status=True), follow_redirects=True )
