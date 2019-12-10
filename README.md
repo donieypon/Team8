@@ -27,6 +27,9 @@ test_main.py .....                                                       [100%]
 
 As busy college students, one of the biggest challenges we face is keeping track of all the things to do. Students have many classes throughout the day, multiple assignments to do, study for other classes, and may have their own errands to run. With this issue in mind, our group felt this to be an interesting challenge to take on and decided to create **stuffToDo**. 
 
+### App live heroku link:
+https://stufftodo.herokuapp.com/
+
 ## Getting Started
 
 The computer should have Python version 3.6 as well as pip installed to setup a localhost web server to serve for the development of the project.
@@ -107,14 +110,19 @@ Users have the ability to delete task they no long want to keep track. By hittin
 ### Check Complete
 In this feature, users have the ability to classify which tasks are finishes and which tasks are unfinished. The finished tasked will be displayed in a column beside the column storing unfinished tasks. It could help users know which tasks need to be completed.
 
-### Send Private Email
-Users have the ability to send an email to a recipient by hitting the Send Message button, input the email of the recipient, subject and content of the email then hit submit.
-
-### Share Task
+### Share
 Users have the ability to send a message to other users who want to share their tasks through email.
 
 ### Reset Password
 Users have the ability to reset their password. Reset link will be sent to users through email when requested.
+
+## Testing location: app/tests
+
+## Sphinx Documentation location: docs/build/html/index.html
+In the docs directory use:
+'''
+open build/html/index.html
+'''
 
 ## Built With
 
