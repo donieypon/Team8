@@ -107,7 +107,10 @@ Users have the ability to delete task they no long want to keep track. By hittin
 ### Check Complete
 In this feature, users have the ability to classify which tasks are finishes and which tasks are unfinished. The finished tasked will be displayed in a column beside the column storing unfinished tasks. It could help users know which tasks need to be completed.
 
-### Share
+### Send Private Email
+Users have the ability to send an email to a recipient by hitting the Send Message button, input the email of the recipient, subject and content of the email then hit submit.
+
+### Share Task
 Users have the ability to send a message to other users who want to share their tasks through email.
 
 ### Reset Password
