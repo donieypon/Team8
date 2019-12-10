@@ -1,7 +1,10 @@
 from flask import render_template, flash, redirect, url_for, request
-from app import app, db, bcrypt
-from app.forms import LoginForm, createAccount, PostForm, mailForm, forgotForm, passwordResetForm
-from app.models import User, Post
+from flask import current_app as app
+# from . import  app, bcrypt
+from . import db
+from . import login_manager
+from .forms import LoginForm, createAccount, PostForm, mailForm, forgotForm, passwordResetForm
+from .models import User, Post
 from flask_login import current_user, login_user, login_required
 from flask_login import logout_user
 from flask_login import login_required
@@ -77,6 +80,11 @@ def logout():
 
 #______________________________________________________________________________
 
+@login_manager.user_loader
+def load_user(id):
+    return User.query.get(int(id))
+
+#______________________________________________________________________________  
 #register
 @app.route('/register', methods=['GET', 'POST'])
 def register():
