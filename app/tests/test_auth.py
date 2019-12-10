@@ -11,7 +11,7 @@ def test_login(client):
     
     
 def test_add_user_to_db(db):
-    test_user = User(email='test_user@gmail.com',username = 'user', password_hash='1234')
+    test_user = User(email='huan98@gmail.com',username = 'huan98', password_hash='huan98')
     db.session.add(test_user)
     db.session.commit()
     assert len(User.query.all()) == 1    
@@ -22,8 +22,8 @@ def test_verify_user_exists(db):
     
 def test_valid_register(client, db):
     response = client.post('/login',
-                           data=dict(uasername='user', email='testing@testing.com',
-                                     password='testing', confirm='testing'),
+                           data=dict(uasername='huan98', email='huan98@testing.com',
+                                     password='huan98', password2='huan98'),
                            follow_redirects=True)
     assert response.status_code == 200  
 
@@ -50,7 +50,7 @@ def test_user_requires_login(client):
 
 def test_finish(client,db):
      response = client.post('/login',
-                           data=dict(uasername='huan89', password='huean89'),
+                           data=dict(uasername='huan89', password='huan89'),
                            follow_redirects=True) 
 
      response = client.post("/edit", data=dict(status=True), follow_redirects=True )
