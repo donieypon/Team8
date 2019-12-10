@@ -2,7 +2,7 @@ import pytest
 # from app import models, forms
 from app.models import User, Post
 from app.forms import LoginForm
-#from app import routes
+# from app import routes
 
 
 def test_login(client):
@@ -54,6 +54,8 @@ def test_finish(client,db):
                            follow_redirects=True) 
 
      response = client.post("/edit", data=dict(status=True), follow_redirects=True )
-     assert response.status_code == 404  
+     assert response.status_code == 404
+                      
 
-    
+
+

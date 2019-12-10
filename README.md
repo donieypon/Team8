@@ -1,28 +1,3 @@
-Yennis-MacBook-Pro-2:Team8 Yenni$ pytest test_main.py
-
-============================= test session starts ==============================
-
-platform darwin -- Python 3.7.4, pytest-5.3.1, py-1.8.0, pluggy-0.13.1
-rootdir: /Users/Yenni/Documents/Team8
-collected 5 items                                                              
-
-test_main.py .....                                                       [100%]
-
-=============================== warnings summary ===============================
-
-/Library/Frameworks/Python.framework/Versions/3.7/lib/python3.7/site-packages/jinja2/utils.py:485
-  /Library/Frameworks/Python.framework/Versions/3.7/lib/python3.7/site-packages/jinja2/utils.py:485: DeprecationWarning: Using or importing the ABCs from 'collections' instead of from 'collections.abc' is deprecated, and in 3.8 it will stop working
-    from collections import MutableMapping
-
-/Library/Frameworks/Python.framework/Versions/3.7/lib/python3.7/site-packages/jinja2/runtime.py:318
-  /Library/Frameworks/Python.framework/Versions/3.7/lib/python3.7/site-packages/jinja2/runtime.py:318: DeprecationWarning: Using or importing the ABCs from 'collections' instead of from 'collections.abc' is deprecated, and in 3.8 it will stop working
-    from collections import Mapping
-
--- Docs: https://docs.pytest.org/en/latest/warnings.html
-
-======================== 5 passed, 2 warnings in 0.48s =========================
-
-
 # stuffToDo
 
 As busy college students, one of the biggest challenges we face is keeping track of all the things to do. Students have many classes throughout the day, multiple assignments to do, study for other classes, and may have their own errands to run. With this issue in mind, our group felt this to be an interesting challenge to take on and decided to create **stuffToDo**. 
